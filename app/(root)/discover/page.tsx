@@ -1,7 +1,7 @@
 import React from "react";
 
-const Profile = () => {
+const Discover = () => {
   return <div>page</div>;
 };
 
-export default Profile;
+export default Discover;
