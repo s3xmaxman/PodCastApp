@@ -4,6 +4,11 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { Loader } from "lucide-react";
+import { useAction, useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { v4 as uuidv4 } from "uuid";
+import { generateUploadUrl } from "@/convex/files";
+import { useUploadFiles } from "@xixixao/uploadstuff/react";
 
 const useGeneratePodcast = ({
   voicePrompt,
@@ -12,6 +17,9 @@ const useGeneratePodcast = ({
   voiceType,
 }: GeneratePodcastProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
+  const getPodcastAudio = useAction(api.openai.generateAudioAction);
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
+  const { startUpload } = useUploadFiles(generateUploadUrl);
 
   const generatePodcast = async () => {
     setIsGenerating(true);
@@ -22,6 +30,19 @@ const useGeneratePodcast = ({
     }
 
     try {
+      const response = await getPodcastAudio({
+        voice: voiceType,
+        input: voicePrompt,
+      });
+
+      const blob = new Blob([response], { type: "audio/mpeg" });
+      const fileName = `podcast-${uuidv4()}.mp3`;
+      const file = new File([blob], fileName, { type: "audio/mpeg" });
+
+      const uploaded = await startUpload([file]);
+      const storageId = (uploaded[0].response as any).storageId;
+
+      setAudioStorageId(storageId);
     } catch (error) {
       console.log(error);
       setIsGenerating(false);
