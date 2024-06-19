@@ -39,21 +39,22 @@ const formSchema = z.object({
 const voiceCategories = ["alloy", "shimmer", "nova", "echo", "fable", "onyx"];
 
 const CreatePodcast = () => {
-  const [voiceType, setVoiceType] = useState<string | null>(null);
-  const [voicePrompt, setVoicePrompt] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [imageUrl, setImageUrl] = useState("");
   const [imagePrompt, setImagePrompt] = useState("");
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
     null
   );
+  const [imageUrl, setImageUrl] = useState("");
 
   const [audioUrl, setAudioUrl] = useState("");
   const [audioStorageId, setAudioStorageId] = useState<Id<"_storage"> | null>(
     null
   );
   const [audioDuration, setAudioDuration] = useState(0);
+
+  const [voiceType, setVoiceType] = useState<string | null>(null);
+  const [voicePrompt, setVoicePrompt] = useState("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -84,7 +85,7 @@ const CreatePodcast = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2.5">
                   <FormLabel className="text-16 font-bold text-white-1">
-                    Title
+                    タイトル
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -98,9 +99,10 @@ const CreatePodcast = () => {
                 </FormItem>
               )}
             />
+
             <div className="flex flex-col gap-2.5">
               <Label className="text-16 font-bold text-white-1">
-                Select AI Voice
+                ボイスを選択
               </Label>
               <Select onValueChange={(value) => setVoiceType(value)}>
                 <SelectTrigger
@@ -124,15 +126,19 @@ const CreatePodcast = () => {
                     </SelectItem>
                   ))}
                 </SelectContent>
+                {voiceType && (
+                  <audio src={`${voiceType}.mp3`} autoPlay className="hidden" />
+                )}
               </Select>
             </div>
+
             <FormField
               control={form.control}
               name="podcastDescription"
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2.5">
                   <FormLabel className="text-16 font-bold text-white-1">
-                    Description
+                    説明
                   </FormLabel>
                   <FormControl>
                     <Textarea

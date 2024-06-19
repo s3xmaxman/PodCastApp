@@ -7,9 +7,8 @@ import { Loader } from "lucide-react";
 import { useAction, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { v4 as uuidv4 } from "uuid";
-import { generateUploadUrl } from "@/convex/files";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 const useGeneratePodcast = ({
   voicePrompt,
@@ -75,15 +74,16 @@ const useGeneratePodcast = ({
 
 const GeneratePodcast = (props: GeneratePodcastProps) => {
   const { isGenerating, generatePodcast } = useGeneratePodcast(props);
+
   return (
     <div>
       <div className="flex flex-col gap-2.5">
-        <Label className="text-16 font-bold text-white-1 ">
-          Ai Prompt to Generate Podcast
+        <Label className="text-16 font-bold text-white-1">
+          AI Prompt to generate Podcast
         </Label>
         <Textarea
           className="input-class font-light focus-visible:ring-offset-orange-1"
-          placeholder="Provide text to generate podcast"
+          placeholder="Provide text to generate audio"
           rows={5}
           value={props.voicePrompt}
           onChange={(e) => props.setVoicePrompt(e.target.value)}

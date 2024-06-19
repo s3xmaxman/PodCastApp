@@ -27,27 +27,27 @@ export const sidebarLinks = [
 export const voiceDetails = [
   {
     id: 1,
-    name: "アロイ",
+    name: "alloy",
   },
   {
     id: 2,
-    name: "エコー",
+    name: "echo",
   },
   {
     id: 3,
-    name: "フェーブル",
+    name: "fable",
   },
   {
     id: 4,
-    name: "オニキス",
+    name: "onyx",
   },
   {
     id: 5,
-    name: "ノヴァ",
+    name: "nova",
   },
   {
     id: 6,
-    name: "シマー",
+    name: "shimmer",
   },
 ];
 
