@@ -9,6 +9,7 @@ import { api } from "@/convex/_generated/api";
 import { v4 as uuidv4 } from "uuid";
 import { generateUploadUrl } from "@/convex/files";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
+import { useToast } from "./ui/use-toast";
 
 const useGeneratePodcast = ({
   voicePrompt,
@@ -20,12 +21,17 @@ const useGeneratePodcast = ({
   const getPodcastAudio = useAction(api.openai.generateAudioAction);
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrl);
+  const getAudioUrl = useMutation(api.podcasts.getUrl);
+  const { toast } = useToast();
 
   const generatePodcast = async () => {
     setIsGenerating(true);
     setAudio("");
 
     if (!voicePrompt) {
+      toast({
+        title: "ポッドキャストを生成するためにvoiceTypeを提供してください",
+      });
       return setIsGenerating(false);
     }
 
@@ -43,8 +49,20 @@ const useGeneratePodcast = ({
       const storageId = (uploaded[0].response as any).storageId;
 
       setAudioStorageId(storageId);
+
+      const audioUrl = await getAudioUrl({ storageId });
+
+      setAudio(audioUrl!);
+      setIsGenerating(false);
+      toast({
+        title: "ポッドキャストを生成しました",
+      });
     } catch (error) {
       console.log(error);
+      toast({
+        title: "ポッドキャストの生成に失敗しました",
+        variant: "destructive",
+      });
       setIsGenerating(false);
     }
   };
