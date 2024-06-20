@@ -23,7 +23,7 @@ const PodcastCard = ({
    * ポッドキャストの詳細ページに遷移する処理
    */
   const handleViews = () => {
-    router.push(`/podcasts/${podcastId}`, {
+    router.push(`/podcast/${podcastId}`, {
       scroll: true,
     });
   };
