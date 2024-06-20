@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "industrious-duck-688.convex.cloud",
       },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+      },
     ],
   },
 };
