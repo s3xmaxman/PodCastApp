@@ -33,6 +33,7 @@ import { VoiceType } from "@/types";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   podcastTitle: z.string().min(2),
@@ -58,10 +59,9 @@ const CreatePodcast = () => {
   const [voicePrompt, setVoicePrompt] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const { toast } = useToast();
-
   const createPodcast = useMutation(api.podcasts.createPodcast);
+  const router = useRouter();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -96,6 +96,10 @@ const CreatePodcast = () => {
         audioStorageId: audioStorageId!,
         imageStorageId: imageStorageId!,
       });
+
+      toast({ title: "Podcastを作成しました" });
+      setIsSubmitting(false);
+      router.push("/");
     } catch (error) {
       console.log(error);
       toast({ title: "Error", variant: "destructive" });
