@@ -27,6 +27,7 @@ const GenerateThumbnail = ({
   const { startUpload } = useUploadFiles(generateUploadUrl);
   const getImageUrl = useMutation(api.podcasts.getUrl);
   const imageRef = useRef<HTMLInputElement>(null);
+  const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction);
   const { toast } = useToast();
 
   /**
@@ -68,7 +69,25 @@ const GenerateThumbnail = ({
     }
   };
 
-  const generateImage = async () => {};
+  /**
+   * AIでサムネイルを生成する関数
+   */
+  const generateImage = async () => {
+    try {
+      const response = await handleGenerateThumbnail({
+        prompt: imagePrompt,
+      });
+
+      const blob = new Blob([response], { type: "image/png" });
+      handleImage(blob, `image-${uuidv4()}.png`);
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "イメージの生成に失敗しました",
+        variant: "destructive",
+      });
+    }
+  };
 
   /**
    * 画像をアップロードする関数
