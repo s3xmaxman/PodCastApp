@@ -63,7 +63,6 @@ const CreatePodcast = () => {
   const createPodcast = useMutation(api.podcasts.createPodcast);
   const router = useRouter();
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -72,7 +71,6 @@ const CreatePodcast = () => {
     },
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       setIsSubmitting(true);

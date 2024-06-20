@@ -1,17 +1,27 @@
 "use client";
+import { PodcastCardProps } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-interface Props {
-  imgUrl: string;
-  title: string;
-  description: string;
-  podcastId: number;
-}
-
-const PodcastCard = ({ imgUrl, title, description, podcastId }: Props) => {
+/**
+ * ポッドキャストカードコンポーネント
+ *
+ * @param imgUrl - ポッドキャストの画像URL
+ * @param title - ポッドキャストのタイトル
+ * @param description - ポッドキャストの説明
+ * @param podcastId - ポッドキャストのID
+ */
+const PodcastCard = ({
+  imgUrl,
+  title,
+  description,
+  podcastId,
+}: PodcastCardProps) => {
   const router = useRouter();
+  /**
+   * ポッドキャストの詳細ページに遷移する処理
+   */
   const handleViews = () => {
     router.push(`/podcasts/${podcastId}`, {
       scroll: true,
