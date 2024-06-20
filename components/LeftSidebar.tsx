@@ -8,18 +8,18 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "./ui/button";
-// import { useAudio } from '@/providers/AudioProvider';
+import { useAudio } from "@/providers/AudioProvider";
 
 const LeftSidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { signOut } = useClerk();
-  // const { audio } = useAudio();
+  const { audio } = useAudio();
 
   return (
     <section
       className={cn("left_sidebar h-[calc(100vh-5px)]", {
-        // 'h-[calc(100vh-140px)]': audio?.audioUrl
+        "h-[calc(100vh-140px)]": audio?.audioUrl,
       })}
     >
       <nav className="flex flex-col gap-6">
