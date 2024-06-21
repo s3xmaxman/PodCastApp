@@ -27,7 +27,7 @@ const PodcastsDetails = ({
   return (
     <section className="flex flex-col w-full">
       <header className="mt-9 flex items-center justify-between">
-        <h1 className="text-20 font-bold text-white-1">Currently Playing</h1>
+        <h1 className="text-20 font-bold text-white-1"></h1>
         <figure className="flex gap-3">
           <Image
             src="/icons/headphone.svg"
@@ -50,19 +50,23 @@ const PodcastsDetails = ({
       </p>
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <h1 className="text-18 font-bold text-white-1">Transcription</h1>
+          <h1 className="text-18 font-bold text-white-1">
+            トランスクリプション
+          </h1>
           <p className="text-16 font-medium text-white-2">
             {podcast?.voicePrompt}
           </p>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="text-18 font-bold text-white-1">Thumbnail Prompt</h1>
+          <h1 className="text-18 font-bold text-white-1">
+            サムネイルのプロンプト
+          </h1>
           <p className="text-16 font-medium text-white-2">
             {podcast?.imagePrompt}
           </p>
         </div>
         <section className="mt-8 flex flex-col gap-5">
-          <h1 className="text-20 font-bold text-white-1">Similar Podcasts</h1>
+          <h1 className="text-20 font-bold text-white-1">類似のPodcasts</h1>
           {similarPodcasts && similarPodcasts.length > 0 ? (
             <div className="podcast_grid">
               {similarPodcasts?.map(
