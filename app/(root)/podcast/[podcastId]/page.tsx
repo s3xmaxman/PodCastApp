@@ -42,14 +42,14 @@ const PodcastsDetails = ({
       <PodcastDetailPlayer
         isOwner={isOwner}
         podcastId={podcast._id}
-        audioUrl={podcast.audioUrl ?? ""}
-        podcastTitle={podcast.podcastTitle ?? ""}
-        author={podcast.author ?? ""}
-        imageUrl={podcast.imageUrl ?? ""}
-        imageStorageId={(podcast.imageStorageId as Id<"_storage">) ?? ""}
-        audioStorageId={(podcast.audioStorageId as Id<"_storage">) ?? ""}
-        authorImageUrl={podcast.authorImageUrl ?? ""}
-        authorId={podcast.authorId ?? ""}
+        audioUrl={podcast.audioUrl!}
+        podcastTitle={podcast.podcastTitle}
+        author={podcast.author}
+        imageUrl={podcast.imageUrl!}
+        imageStorageId={podcast.imageStorageId as Id<"_storage">}
+        audioStorageId={podcast.audioStorageId as Id<"_storage">}
+        authorImageUrl={podcast.authorImageUrl}
+        authorId={podcast.authorId}
       />
 
       <p className="text-white-2 text-16 pb-8 pt-[45px] font-medium max-md:text-center">
